@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:async';
 
 Future fetchItem() async {
-    final response = await http.get('https://www.boredapi.com/api/activity?type=recreational');
+    final response = await http.get('https://www.boredapi.com/api/activity');
     if (response.statusCode == 200) {
       return json.decode(response.body.toString());
     } else {
@@ -24,7 +24,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Future items = fetchItem();
 
-  Future _fetchState() {
+  _fetchState() {
     setState(() {
       items = fetchItem();
     });
@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
     return new MaterialApp(
       title: 'Boredom Destroyer',
       theme: new ThemeData(
-        primarySwatch: Colors.indigo,
+        primarySwatch: Colors.deepPurple,
       ),
       home: new Scaffold(
         appBar: new AppBar(
@@ -57,6 +57,11 @@ class _MyAppState extends State<MyApp> {
                         new Text('What should I do?', style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
                         new ListTile(
                           title: Text('${snapshot.data['activity']}', textAlign: TextAlign.center),
+                        ),
+                        new Image.asset(
+                          "images/boredNOT.gif",
+                          height: 300.0,
+                          width: 300.0,
                         ),
                         new RaisedButton(
                           onPressed: () { _fetchState(); },
