@@ -58,15 +58,11 @@ class _MyAppState extends State<MyApp> {
                         new ListTile(
                           title: Text('${snapshot.data['activity']}', textAlign: TextAlign.center),
                         ),
-                        new Image.asset(
-                          "images/boredNOT.gif",
-                          height: 300.0,
-                          width: 300.0,
-                        ),
+
                         new RaisedButton(
                           onPressed: () { _fetchState(); },
                           child: const Text('Hit me up!'),
-                        )
+                        ),
                       ],
                     ),
                   ))],
