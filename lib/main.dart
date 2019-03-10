@@ -18,37 +18,26 @@ class MyApp extends StatelessWidget {
         appBar: new AppBar(
           title: new Text('Ricky and Morty Characters'),
         ),
-        body:new FutureBuilder<Char>(
+        body:new FutureBuilder(
           future: fetchChars(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              print(snapshot.data);
-              return Text('asdsadsa');
+              return ListView.builder(
+                itemCount: 12,
+                itemBuilder: (context, index) {
+                  // // print('Howdy, ${snapshot.data.name}!');
+                  // print("===> ${snapshot.data}");
+                  return CardItem(snapshot.data);
+                },
+              );
             } else if (snapshot.hasError) {
-              return Text("${snapshot.error}");
+              // print(snapshot.error);
+              return new Text("error: ${snapshot.error}");
             }
 
             // By default, show a loading spinner
-            return CircularProgressIndicator();
+            return new Center(child: new CircularProgressIndicator());
           },
-          // builder: (context, snapshot) {
-          //   if (snapshot.hasData) {
-          //     return ListView.builder(
-          //       itemCount: snapshot.data.length,
-          //       itemBuilder: (context, index) {
-          //         // print('Howdy, ${snapshot.data['name']}!');
-          //         print("===> ${snapshot.data}");
-          //         return CardItem(snapshot.data);
-          //       },
-          //     );
-          //   } else if (snapshot.hasError) {
-          //     print(snapshot.error);
-          //     return new Text("error: ${snapshot.error}");
-          //   }
-
-          //   // By default, show a loading spinner
-          //   return new Center(child: new CircularProgressIndicator());
-          // },
         )
         // new Container(
         //   child: new FutureBuilder<List>(
@@ -78,25 +67,32 @@ class MyApp extends StatelessWidget {
 
 
 
-  Future<Char> fetchChars() async {
-    final response = await http.get('https://rickandmortyapi.com/api/character/2');
+  Future fetchChars() async {
+    final response = await http.get('https://rickandmortyapi.com/api/character');
 
-    if (response.statusCode == 200) {
-      // If server returns an OK response, parse the JSON
-      return Char.fromJson(json.decode(response.body));
-    } else {
-      // If that response was not OK, throw an error.
-      throw Exception('Failed to load post');
-    }
-    // Map<dynamic, dynamic> responseJson = json.decode(response.body.toString());
-    // var chars = responseJson['results'];
+    // if (response.statusCode == 200) {
+    //   // If server returns an OK response, parse the JSON
+    //   return Char.fromJson(json.decode(response.body));
+    // } else {
+    //   // If that response was not OK, throw an error.
+    //   throw Exception('Failed to load post');
+    // }
+    Map<dynamic, dynamic> responseJson = json.decode(response.body.toString());
+    var chars = responseJson['results'];
     // print('==>');
     // print(chars);
-    // for (var items in chars){ //iterate over the list
-    //   Map myMap = items; //store each map
-    //   print(myMap['name']);
-    // }
-    // return chars;
+    for (var items in chars){ //iterate over the list
+      Map myMap = items; //store each map
+      // print(myMap['name']);
+    }
+    var teste = new List<dynamic>.generate(
+      chars.length,
+      (index) => chars,
+    );
+    print('LISTAAAAAAAAAAAAAAA');
+    print(teste);
+    print(teste[0]);
+    return chars;
   }
 
 }
@@ -124,6 +120,8 @@ class CardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print('carditem');
+    // print(_char);
     return  Card(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -139,24 +137,26 @@ class CardItem extends StatelessWidget {
   }
 }
 
-class Char {
-  int id;
-  String name;
-  String status;
-  String species;
-  String type;
-  String gender;
+abstract class ListItem {}
 
-  Char({this.id, this.name, this.status, this.species, this.type, this.gender});
+// class Char {
+//   int id;
+//   String name;
+//   String status;
+//   String species;
+//   String type;
+//   String gender;
 
-  factory Char.fromJson(Map<String, dynamic> json) {
-    return Char(
-      id: json['id'],
-      name: json['name'],
-      status: json['status'],
-      species: json['species'],
-      type: json['type'],
-      gender: json['gender'],
-    );
-  }
-}
+//   Char({this.id, this.name, this.status, this.species, this.type, this.gender});
+
+//   factory Char.fromJson(Map<String, dynamic> json) {
+//     return Char(
+//       id: json['id'],
+//       name: json['name'],
+//       status: json['status'],
+//       species: json['species'],
+//       type: json['type'],
+//       gender: json['gender'],
+//     );
+//   }
+// }
