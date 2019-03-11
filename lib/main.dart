@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
+import 'dart:math';
 
 Future fetchItem() async {
-    final response = await http.get('https://www.boredapi.com/api/activity');
+    final _random = new Random();
+    int next(int min, int max) => min + _random.nextInt(max - min);
+    var charId = next(1, 493);
+    final response = await http.get('https://rickandmortyapi.com/api/character/${charId}');
     if (response.statusCode == 200) {
       return json.decode(response.body.toString());
     } else {
@@ -33,13 +37,13 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      title: 'Boredom Destroyer',
+      title: 'Rick and Morty Characters',
       theme: new ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
       home: new Scaffold(
         appBar: new AppBar(
-          title: new Text('Boredom Destroyer'),
+          title: new Text('Rick and Morty Characters'),
         ),
         body: new Container(
           child: new FutureBuilder(
@@ -54,14 +58,31 @@ class _MyAppState extends State<MyApp> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        new Text('What should I do?', style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold)),
-                        new ListTile(
-                          title: Text('${snapshot.data['activity']}', textAlign: TextAlign.center),
+                        new Text('${snapshot.data['name']}', style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+                        new ClipRRect(
+                          borderRadius: new BorderRadius.circular(1358.0),
+                          child: new Image.network('${snapshot.data['image']}', height: 270.0),
                         ),
-
+                        new Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Chip(
+                                label: Text('${snapshot.data['status']}', textAlign: TextAlign.center),
+                                backgroundColor: Colors.redAccent,
+                              ),
+                            new Chip(
+                                label: Text('${snapshot.data['species']}', textAlign: TextAlign.center),
+                                backgroundColor: Colors.deepOrange,
+                              ),
+                            new Chip(
+                                label: Text('${snapshot.data['origin']['name']}', textAlign: TextAlign.center),
+                                backgroundColor: Colors.orange,
+                              ),
+                          ],
+                        ),
                         new RaisedButton(
                           onPressed: () { _fetchState(); },
-                          child: const Text('Hit me up!'),
+                          child: const Text("I don't like this one!"),
                         ),
                       ],
                     ),
