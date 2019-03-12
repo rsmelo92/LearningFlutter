@@ -61,8 +61,9 @@ class _MyAppState extends State<MyApp> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               new Text('${snapshot.data['name']}',
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 20.0,
+                                      fontSize: 18.0,
                                       fontWeight: FontWeight.bold)),
                               new Padding(
                                 padding: EdgeInsets.all(10.0),
