@@ -81,21 +81,24 @@ class _MyAppState extends State<MyApp> {
                                     children: <Widget>[
                                       new Chip(
                                         label: Text(
-                                            'Status: ${snapshot.data['status']}',
-                                            textAlign: TextAlign.center),
-                                        backgroundColor: Colors.redAccent,
+                                          'Status: ${snapshot.data['status']}',
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        backgroundColor: Colors.indigo[100],
                                       ),
                                       new Chip(
                                         label: Text(
                                             'Species: ${snapshot.data['species']}',
-                                            textAlign: TextAlign.center),
-                                        backgroundColor: Colors.deepOrange,
+                                            textAlign: TextAlign.center,
+                                        ),
+                                        backgroundColor: Colors.indigo[100],
                                       ),
                                       new Chip(
                                         label: Text(
                                             'Origin: ${snapshot.data['origin']['name']}',
-                                            textAlign: TextAlign.center),
-                                        backgroundColor: Colors.orange,
+                                            textAlign: TextAlign.center,
+                                        ),
+                                        backgroundColor: Colors.indigo[100],
                                       ),
                                     ],
                                   )
@@ -105,7 +108,10 @@ class _MyAppState extends State<MyApp> {
                                 onPressed: () {
                                   _fetchState();
                                 },
-                                child: const Text("I don't like this one!"),
+                                color: Colors.indigo[400],
+                                child: new Text("I don't like this one!",
+                                  style: new TextStyle(color: Colors.white),
+                                ),
                               ),
                             ],
                           ),
