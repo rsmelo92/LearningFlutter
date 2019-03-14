@@ -1,16 +1,4 @@
-# testando
+# Ricky and Morty Characters with Java/Android Studio
+![androidFlutter](https://user-images.githubusercontent.com/16295402/54330356-2238df00-45f4-11e9-8af7-4a9790ca7491.gif)
 
-A new Flutter project.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
